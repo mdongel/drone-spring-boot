@@ -1,0 +1,63 @@
+plugins {
+  id 'org.springframework.boot'
+  id 'io.spring.dependency-management'
+  id 'java'
+  id 'jacoco'
+}
+
+defaultTasks 'test'
+
+jacoco {
+  toolVersion = "0.8.6"
+  reportsDir = file("$buildDir/reports/jacoco")
+}
+
+jacocoTestReport {
+  reports {
+    xml.enabled true
+    csv.enabled true
+    html.destination file("$buildDir/reports/jacoco/html")
+  }
+}
+
+configurations {
+  compile.exclude(module: 'log4j')
+  compile.exclude(group: 'org.slf4j', module: 'slf4j-log4j12')
+}
+springBoot {
+  mainClassName = 'com.bankifi.pay360.Application'
+}
+
+
+dependencies {
+
+  implementation 'org.springframework.boot:spring-boot-starter'
+  testImplementation libs.springCloudContract
+
+  testImplementation project(':service')
+  testImplementation project(":service").sourceSets.test.output
+
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+  testCompile libs.junitJupiterApi
+  testCompile libs.junitJupiterEngine
+  testCompile libs.wiremock
+}
+
+test {
+  // Always run tests, even when nothing changed.
+  dependsOn 'cleanTest'
+
+  afterTest { desc, result ->
+    logger.quiet "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+  }
+  afterSuite { desc, result ->
+    if (!desc.parent) {
+      println "\nTest result: ${result.resultType}"
+      println "Test summary: ${result.testCount} tests, " +
+              "${result.successfulTestCount} succeeded, " +
+              "${result.failedTestCount} failed, " +
+              "${result.skippedTestCount} skipped"
+    }
+  }
+}

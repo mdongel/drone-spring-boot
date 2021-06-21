@@ -1,0 +1,60 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.1'
+    id 'java'
+    id 'org.asciidoctor.convert' version '1.5.8.1'
+}
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
+
+
+gradle.taskGraph.whenReady {
+    taskGraph ->
+        if (taskGraph.hasTask(stage)) {
+            test.enabled = false
+        }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven {
+            url "http://packages.confluent.io/maven"
+        }
+    }
+
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply from: "${rootDir}/dependencies.gradle"
+}
+
+
+subprojects {
+    apply plugin: 'java'
+    group = 'com.bankifi.platform'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven {
+            url 'https://packages.confluent.io/maven'
+        }
+    }
+}
+
+asciidoctor {
+    sourceDir = file('docs')
+    outputDir = file('build/operating-manual')
+
+    sources {
+        include '**/*.adoc'
+    }
+}
