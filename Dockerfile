@@ -1,7 +1,7 @@
 FROM adoptopenjdk/openjdk11-openj9:latest AS build
 ADD . /src
 WORKDIR /src
-RUN ./gradlew service:clean service:build
+RUN ./gradlew clean build
 
 FROM adoptopenjdk:11-jre-hotspot
 EXPOSE 9194
