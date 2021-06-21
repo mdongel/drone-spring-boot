@@ -1,24 +1,7 @@
-#Drone CI File!
-#Commit Message: Drone! Captain Canary is here!
-
-kind: pipeline
-type: kubernetes
-name: default
-
-steps:
-
-  - name: build
+pipeline:
+  build:
     image: adoptopenjdk/openjdk11
     commands:
       - ./gradlew clean build
 
-  - name: publish
-    image: plugins/docker
-    settings:
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-      repo: mdongel/myrepo
-      auto_tag: true
-      auto_tag_suffix: drone-build
+
