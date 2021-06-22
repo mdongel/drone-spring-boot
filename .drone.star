@@ -34,7 +34,7 @@ def publish(microservice_name):
     'settings': {
       'auto_tag': True,
       'auto_tag_suffix': 'linux-amd64',
-      'repo': 'mdongel/' + microservice_name',
+      'repo': 'mdongel/' + microservice_name,
       'username': {
         'from_secret': 'docker_username',
       },
