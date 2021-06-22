@@ -4,17 +4,12 @@ def main(ctx):
   return springboot_microservice_pipeline(ctx, MICROSERVICE_NAME)
 
 def springboot_microservice_pipeline(ctx, microservice_name):
-  return [
-      pipeline(microservice_name),
-  ]
-
-def pipeline(microservice_name):
   return {
     'kind': 'pipeline',
     'name': 'default',
     'steps': [
       build(),
-      publish(microservice_name),
+      publish_to_docker_registry(microservice_name),
     ],
   }
 
@@ -27,7 +22,7 @@ def build():
     ],
   }
 
-def publish(microservice_name):
+def publish_to_docker_registry(microservice_name):
   return {
     'name': 'publish',
     'image': 'plugins/docker',
