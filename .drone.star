@@ -18,7 +18,7 @@ def build():
     'name': 'build',
     'image': 'adoptopenjdk/openjdk11',
     'commands': [
-      './gradlew clean build',
+      './gradlewgg clean build',
     ],
   }
 
