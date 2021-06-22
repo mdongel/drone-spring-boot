@@ -27,10 +27,10 @@ def publish_to_docker_registry(microservice_name):
     'name': 'publish',
     'image': 'plugins/docker',
     'settings': {
-      'registry': 'hub.docker.com',
+      'registry': 'index.docker.io',
       'auto_tag': True,
       'auto_tag_suffix': 'linux-amd64',
-      'repo': 'hub.docker.com/mdongel/%s' % microservice_name,
+      'repo': 'docker.io/mdongel/%s' % microservice_name,
       'username': {
         'from_secret': 'docker_username',
       },
