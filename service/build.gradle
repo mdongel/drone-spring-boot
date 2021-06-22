@@ -39,7 +39,6 @@ jar {
 }
 
 bootJar {
-
     classifier = 'boot'
 }
 

@@ -3,10 +3,10 @@ name: default
 
 steps:
 
-#  - name: build
-#    image: adoptopenjdk/openjdk11
-#    commands:
-#      - ./gradlew clean build
+  - name: build
+    image: adoptopenjdk/openjdk11
+    commands:
+      - ./gradlew clean build
 
   - name: publish
     image: plugins/docker
