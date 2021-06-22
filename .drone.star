@@ -27,7 +27,6 @@ def publish_to_docker_registry(microservice_name):
     'name': 'publish',
     'image': 'plugins/docker',
     'settings': {
-      'registry': 'https://hub.docker.com',
       'auto_tag': True,
       'auto_tag_suffix': 'linux-amd64',
       'repo': 'mdongel/%s' % microservice_name,
