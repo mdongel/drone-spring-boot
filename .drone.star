@@ -33,20 +33,15 @@ def publish_to_docker_registry(microservice_name):
     'settings': {
       'tags': "latest",
       'repo': 'mdongel/%s' % microservice_name,
-      'username': '$ACR_USERNAME',
-      'password': {
-        'from_secret': 'docker_password',
-      },
+      'build_args_from_env': [
+        'username',
+        'password'
+      ],
     },
   }
 
 def env_acr():
   return {
-    "ACR_USERNAME": {
-      "from_secret": "azenv_central_registry_username"
-    },
-    "ACR_PASSWORD": {
-      "from_secret": "azenv_central_registry_password"
-    },
-    "ACR_LOGINSERVER": "DEFAULT_DOCKER_REGISTRY"
+    "username":  "from_secret": "azenv_central_registry_username",
+    "password":  "from_secret": "azenv_central_registry_password"
   }
