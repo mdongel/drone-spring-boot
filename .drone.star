@@ -1,4 +1,6 @@
 MICROSERVICE_NAME="integration-pay360-ms"
+USERNAME_SECRET="docker_username"
+PASSWORD_SECRET="docker_password"
 
 
 def main(ctx):
@@ -24,28 +26,18 @@ def build():
   }
 
 def publish_to_docker_registry(microservice_name):
-  environment = {}
-  environment.update(env_acr())
   return {
     'name': 'publish',
     'image': 'plugins/docker',
-    'environment': environment,
     'settings': {
       'tags': "latest",
       'repo': 'mdongel/%s' % microservice_name,
-      'build_args_from_env': [
-        'username',
-        'password'
-      ],
+      'username': {
+        'from_secret': '%s' % USERNAME_SECRET,
+      },
+      'password': {
+        'from_secret':  '%s' % PASSWORD_SECRET,
+      }
     },
   }
 
-def env_acr():
-  return {
-    "username":  {
-        "from_secret": "docker_username"
-    },
-    "password":  {
-        "from_secret": "docker_password"
-    }
-  }
