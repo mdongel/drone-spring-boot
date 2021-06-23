@@ -1,5 +1,6 @@
 MICROSERVICE_NAME="integration-pay360-ms"
 
+
 def main(ctx):
   return springboot_microservice_pipeline(ctx, MICROSERVICE_NAME)
 
@@ -23,24 +24,29 @@ def build():
   }
 
 def publish_to_docker_registry(microservice_name):
+  environment = {}
+  environment.update(env_acr())
   return {
     'name': 'publish',
     'image': 'plugins/docker',
-    "environment": {
-        "ACR_USERNAME": {
-            "from_secret": "docker_username"
-        },
-        "ACR_PASSWORD": {
-            "from_secret": "docker_password"
-        },
-            "ACR_LOGINSERVER": "bankifilabsgeneralregistry.azurecr.io"
-    },
+    'environment': environment,
     'settings': {
       'tags': "latest",
       'repo': 'mdongel/%s' % microservice_name,
-      'username': $ACR_USERNAME,
+      'username': '$ACR_USERNAME',
       'password': {
         'from_secret': 'docker_password',
       },
     },
+  }
+
+def env_acr():
+  return {
+    "ACR_USERNAME": {
+      "from_secret": "azenv_central_registry_username"
+    },
+    "ACR_PASSWORD": {
+      "from_secret": "azenv_central_registry_password"
+    },
+    "ACR_LOGINSERVER": DEFAULT_DOCKER_REGISTRY
   }
