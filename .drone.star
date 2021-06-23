@@ -40,7 +40,7 @@ def publish_to_docker_registry(microservice_name):
       'auto_tag': True,
       'auto_tag_suffix': 'linux-amd64',
       'repo': 'docker.io/mdongel/%s' % microservice_name,
-      'username': $ACR_USERNAME,
+      'username': '$ACR_USERNAME',
       'password': {
         'from_secret': 'docker_password',
       },
