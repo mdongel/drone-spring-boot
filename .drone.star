@@ -34,7 +34,7 @@ def publish_to_docker_registry(microservice_name):
       'tags': "latest",
       'repo': 'mdongel/%s' % microservice_name,
       'build_args_from_env': [
-        'username',
+        'USERNAME',
         'password'
       ],
     },
@@ -42,7 +42,7 @@ def publish_to_docker_registry(microservice_name):
 
 def env_acr():
   return {
-    "username":  {
+    "USERNAME":  {
         "from_secret": "docker_username"
     },
     "password":  {
