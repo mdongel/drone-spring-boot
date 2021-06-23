@@ -9,6 +9,7 @@ def main(ctx):
 def springboot_microservice_pipeline(ctx, microservice_name):
   return {
     'kind': 'pipeline',
+    'type': 'kubernetes',
     'name': 'default',
     'steps': [
     #  build(),
@@ -31,7 +32,7 @@ def publish_to_docker_registry(microservice_name):
     'image': 'plugins/docker',
     'settings': {
       'tags': "latest",
-      'repo': '%s' % microservice_name,
+      'repo': 'mdongel/%s' % microservice_name,
       'username': {
         'from_secret': '%s' % USERNAME_SECRET,
       },
