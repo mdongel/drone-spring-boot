@@ -31,7 +31,7 @@ def publish_to_docker_registry(microservice_name):
     'image': 'plugins/docker',
     'settings': {
       'tags': "latest",
-      'repo': 'mdongel/%s' % microservice_name,
+      'repo': '%s' % microservice_name,
       'username': {
         'from_secret': '%s' % USERNAME_SECRET,
       },
