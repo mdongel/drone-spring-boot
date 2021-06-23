@@ -26,14 +26,21 @@ def publish_to_docker_registry(microservice_name):
   return {
     'name': 'publish',
     'image': 'plugins/docker',
+    "environment": {
+        "ACR_USERNAME": {
+            "from_secret": "azenv_central_registry_username"
+        },
+        "ACR_PASSWORD": {
+            "from_secret": "azenv_central_registry_password"
+        },
+            "ACR_LOGINSERVER": "bankifilabsgeneralregistry.azurecr.io"
+    },
     'settings': {
       'registry': 'index.docker.io',
       'auto_tag': True,
       'auto_tag_suffix': 'linux-amd64',
       'repo': 'docker.io/mdongel/%s' % microservice_name,
-      'username': {
-        'from_secret': 'docker_username',
-      },
+      'username': $ACR_USERNAME,
       'password': {
         'from_secret': 'docker_password',
       },
