@@ -42,6 +42,10 @@ def publish_to_docker_registry(microservice_name):
 
 def env_acr():
   return {
-    "username":  "from_secret": "azenv_central_registry_username",
-    "password":  "from_secret": "azenv_central_registry_password"
+    "username":  {
+        "from_secret": "docker_username"
+    },
+    "password":  {
+        "from_secret": "docker_password"
+    }
   }
