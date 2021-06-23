@@ -37,7 +37,7 @@ def publish_to_docker_registry(microservice_name):
     },
     'settings': {
       'registry': 'index.docker.io',
-      'tags': "latest"
+      'tags': "latest",
       'repo': 'docker.io/mdongel/%s' % microservice_name,
       'username': '$ACR_USERNAME',
       'password': 'ACR_PASSWORD',
