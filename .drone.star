@@ -48,5 +48,5 @@ def env_acr():
     "ACR_PASSWORD": {
       "from_secret": "azenv_central_registry_password"
     },
-    "ACR_LOGINSERVER": DEFAULT_DOCKER_REGISTRY
+    "ACR_LOGINSERVER": "DEFAULT_DOCKER_REGISTRY"
   }
