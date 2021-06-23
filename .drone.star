@@ -33,7 +33,7 @@ def publish_to_docker_registry(microservice_name):
       'tags': "latest",
       'repo': '%s' % microservice_name,
       'username': {
-        'from_secret':  USERNAME_SECRET,
+        'from_secret': '$USERNAME_SECRET',
       },
       'password': {
         'from_secret':  '%s' % PASSWORD_SECRET,
