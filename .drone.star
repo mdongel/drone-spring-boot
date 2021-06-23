@@ -8,7 +8,7 @@ def springboot_microservice_pipeline(ctx, microservice_name):
     'kind': 'pipeline',
     'name': 'default',
     'steps': [
-      build(),
+    #  build(),
       publish_to_docker_registry(microservice_name),
     ],
   }
